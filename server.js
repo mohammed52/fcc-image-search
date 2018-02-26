@@ -19,8 +19,8 @@ var app = express();
 
 const MongoClient = require('mongodb').MongoClient
 
-// var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL;
-var mongoUri = 'mongodb://heroku_4mhtfdcs:cjvl7rth7ddma66ad3h3klkjtr@ds147118.mlab.com:47118/heroku_4mhtfdcs'
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL;
+// var mongoUri = 'mongodb://heroku_4mhtfdcs:cjvl7rth7ddma66ad3h3klkjtr@ds147118.mlab.com:47118/heroku_4mhtfdcs'
 
 let SHORT_CODE_START = 5395;
 
