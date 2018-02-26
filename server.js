@@ -12,7 +12,7 @@ var app = express();
 // var moment = require('moment')
 // var reload = require('reload')
 // var useragent = require('useragent');
-var assert = require('assert');
+// var assert = require('assert');
 
 // var validUrl = require('valid-url');
 // var validator = require('validator');
@@ -50,12 +50,15 @@ app.route('/_api/package.json')
 
 
 MongoClient.connect(mongoUri, function(err, client) {
-  assert.equal(null, err);
+  // assert.equal(null, err);
+  if (err) {
+    throw new Error('listId does not exist');
+  }
   console.log('Successfully connected to mondodb');
 
   //   const urls = 'urls';
   //   const database = 'heroku_4mhtfdcs'
-  //   var db = client.db(database);
+  // var db = client.db(database);
 
   // reload(app);
   app.route('/')
