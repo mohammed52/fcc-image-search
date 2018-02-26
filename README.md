@@ -1,3 +1,3 @@
-FCC URL Shortner
+FCC Image Search
 
-#### Demo site: [**https://fcc-url-shortner1.herokuapp.com/**](https://fcc-url-shortner1.herokuapp.com/)
+#### Demo site: [**https://fcc-image-search1.herokuapp.com/**](https://fcc-image-search1.herokuapp.com/)
