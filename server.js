@@ -19,7 +19,9 @@ var app = express();
 
 const MongoClient = require('mongodb').MongoClient
 
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL;
+// var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL;
+var mongoUri = 'mongodb://heroku_4mhtfdcs:cjvl7rth7ddma66ad3h3klkjtr@ds147118.mlab.com:47118/heroku_4mhtfdcs'
+
 let SHORT_CODE_START = 5395;
 
 if (!process.env.DISABLE_XORIGIN) {
@@ -52,7 +54,7 @@ app.route('/_api/package.json')
 MongoClient.connect(mongoUri, function(err, client) {
   // assert.equal(null, err);
   if (err) {
-    throw new Error('listId does not exist');
+    throw new Error(err);
   }
   console.log('Successfully connected to mondodb');
 
