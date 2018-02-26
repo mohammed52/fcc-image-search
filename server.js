@@ -12,10 +12,10 @@ var app = express();
 // var moment = require('moment')
 // var reload = require('reload')
 // var useragent = require('useragent');
-// var assert = require('assert');
+var assert = require('assert');
 
-// var validUrl = require('valid-url');
-// var validator = require('validator');
+var validUrl = require('valid-url');
+var validator = require('validator');
 
 const MongoClient = require('mongodb').MongoClient
 
@@ -57,9 +57,10 @@ MongoClient.connect(mongoUri, function(err, client) {
   }
   console.log('Successfully connected to mondodb');
 
-  //   const urls = 'urls';
-  //   const database = 'heroku_4mhtfdcs'
-  // var db = client.db(database);
+
+  const urls = 'urls';
+  const database = 'heroku_4mhtfdcs'
+  var db = client.db(database);
 
   // reload(app);
   app.route('/')
@@ -73,71 +74,71 @@ MongoClient.connect(mongoUri, function(err, client) {
       }
     });
 
-  // app.route('/new/*')
-    //   .get(function(req, res) {
-    //     var query = req.path;
-    //     query = query.substr(5);
-    //     console.log("query", query);
-    //     // ...
-    //     if (!validUrl.isUri(query)) {
-    //       console.log("invalid url");
+  app.route('/new/*')
+    .get(function(req, res) {
+      var query = req.path;
+      query = query.substr(5);
+      console.log("query", query);
+      // ...
+      if (!validUrl.isUri(query)) {
+        console.log("invalid url");
 
-  //       res.send({
-    //         error: "not a valid url-3"
-    //       })
-    //     } else {
-    //       console.log("valid url");
-    //       db.collection('urls').find({}).count(function(err, count) {
-    //         if (err) res.send({
-    //             error: err
-    //           })
-    //         console.log("count", count);
-    //         const newCount = SHORT_CODE_START + Number(count)
-    //         db.collection('urls').insertOne({
-    //           url: query,
-    //           shortCode: newCount
-    //         }, function(err, doc) {
-    //           assert.equal(null, err);
-    //           console.log("doc", doc);
-    //           res.send({
-    //             "original_url": query,
-    //             "short_url": "https://fcc-url-shortner1.herokuapp.com/" + newCount
-    //           });
-    //         });
+        res.send({
+          error: "not a valid url-3"
+        })
+      } else {
+        console.log("valid url");
+        db.collection('urls').find({}).count(function(err, count) {
+          if (err) res.send({
+              error: err
+            })
+          console.log("count", count);
+          const newCount = SHORT_CODE_START + Number(count)
+          db.collection('urls').insertOne({
+            url: query,
+            shortCode: newCount
+          }, function(err, doc) {
+            assert.equal(null, err);
+            console.log("doc", doc);
+            res.send({
+              "original_url": query,
+              "short_url": "https://fcc-url-shortner1.herokuapp.com/" + newCount
+            });
+          });
 
-  //       });
+        });
 
-  //       db.collection('urls').find({}).toArray(function(err, docs) {
-    //         console.log("docs", docs);
-    //       });
+        db.collection('urls').find({}).toArray(function(err, docs) {
+          console.log("docs", docs);
+        });
 
 
-  //     }
-    //   });
+      }
+    });
 
-  // app.route('/:query')
-    //   .get(function(req, res) {
-    //     console.log("req", req);
-    //     if (validator.isNumeric(req.params.query)) {
-    //       db.collection('urls').findOne({
-    //         shortCode: Number(req.params.query)
-    //       }, null, function(err, doc) {
-    //         if (doc) {
-    //           console.log(doc);
-    //           res.redirect(doc.url);
-    //         } else {
-    //           res.send({
-    //             error: "shortCode not found"
-    //           })
-    //         }
-    //       });
+  app.route('/:query')
+    .get(function(req, res) {
+      console.log("req", req);
+      if (validator.isNumeric(req.params.query)) {
+        db.collection('urls').findOne({
+          shortCode: Number(req.params.query)
+        }, null, function(err, doc) {
+          if (doc) {
+            console.log(doc);
+            res.redirect(doc.url);
+          } else {
+            res.send({
+              error: "shortCode not found"
+            })
+          }
+        });
 
-  //     } else {
-    //       res.send({
-    //         error: "url invalid"
-    //       })
-    //     }
-    //   });
+      } else {
+        res.send({
+          error: "url invalid"
+        })
+      }
+    });
 
 
 

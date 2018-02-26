@@ -1,6 +1,7 @@
 {
   "name": "fcc-learn-npm-package-json",
   "dependencies": {
+    "assert": "^1.4.1",
     "express": "^4.14.0",
     "mongodb": "^3.0.2",
     "useragent": "^2.3.0",
