@@ -3,7 +3,9 @@
   "dependencies": {
     "express": "^4.14.0",
     "mongodb": "^3.0.2",
-    "useragent": "^2.3.0"
+    "useragent": "^2.3.0",
+    "valid-url": "^1.0.9",
+    "validator": "^9.4.1"
   },
   "main": "server.js",
   "scripts": {
