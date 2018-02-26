@@ -19,7 +19,7 @@ var validator = require('validator');
 
 const MongoClient = require('mongodb').MongoClient
 
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/video';
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL;
 let SHORT_CODE_START = 5395;
 
 if (!process.env.DISABLE_XORIGIN) {
