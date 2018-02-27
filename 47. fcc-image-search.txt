@@ -1,0 +1,20 @@
+image search
+--
+use express generator to create a project
+--
+use google custom search api:
+
+https://developers.google.com/custom-search/json-api/v1/overview
+--
+Your search engine ID - GOOGLE_SEARCH_ENGINE_ID
+015116788510699785616:kz3yotcf4j4
+--
+YOUR API KEY - GOOGLE_SEARCH_API_KEY
+AIzaSyBK7iTVUsP2V-YGSf-nEfaNMkl6qON_JWo
+--
+Documentation: https://developers.google.com/custom-search/docs/glossary#json
+--
+Sample Search String:
+GET https://www.googleapis.com/customsearch/v1?key=AIzaSyBK7iTVUsP2V-YGSf-nEfaNMkl6qON_JWo&cx=015116788510699785616:kz3yotcf4j4&q=lectures
+--
+Askari Bank 
