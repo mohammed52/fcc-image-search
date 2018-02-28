@@ -17,4 +17,6 @@ Documentation: https://developers.google.com/custom-search/docs/glossary#json
 Sample Search String:
 GET https://www.googleapis.com/customsearch/v1?key=AIzaSyBK7iTVUsP2V-YGSf-nEfaNMkl6qON_JWo&cx=015116788510699785616:kz3yotcf4j4&q=lectures
 --
-Askari Bank 
+Copy this directory Structure:
+https://github.com/StevenXL/fcc-url-shortener/blob/master/server.js
+--

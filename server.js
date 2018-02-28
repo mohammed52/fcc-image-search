@@ -13,9 +13,10 @@ var app = express();
 // var reload = require('reload')
 // var useragent = require('useragent');
 var assert = require('assert');
-
 var validUrl = require('valid-url');
 var validator = require('validator');
+
+var routes = require('./app/routes/index.js');
 
 const MongoClient = require('mongodb').MongoClient
 
