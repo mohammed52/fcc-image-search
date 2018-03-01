@@ -20,3 +20,31 @@ GET https://www.googleapis.com/customsearch/v1?key=AIzaSyBK7iTVUsP2V-YGSf-nEfaNM
 Copy this directory Structure:
 https://github.com/StevenXL/fcc-url-shortener/blob/master/server.js
 --
+use strict - 
+--
+Sample search string with parameters:
+https://www.googleapis.com/customsearch/v1?key=AIzaSyBK7iTVUsP2V-YGSf-nEfaNMkl6qON_JWo&cx=015116788510699785616:kz3yotcf4j4&q=lectures&start=10&num=2
+--
+devs with 6-8 years experience, senior devs charge $80-120 per hour on upwork
+--
+thats 230,400/- per year
+--
+after fcc you will maybe be at $15 per hour
+--
+find work after you complete fcc, start with PAK companies, move to foreign clients
+--
+app.use([path,] callback [, callback...])
+Mounts the specified middleware function or functions at the specified path: the middleware function is executed when the base of the requested path matches path.
+--
+tasneemajmer@icloud.com
+Tasneem786
+--
+watch the documentary on the transistor: https://www.youtube.com/watch?v=U4XknGqr3Bo
+--
+req.params.[query]
+req.query //contains all the key value pairs
+--
+there are multiple libraries for making http requests, axios is one of them
+--
+if you have to make a super simple request: use npm request module
+--

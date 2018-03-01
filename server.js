@@ -38,126 +38,23 @@ if (!process.env.DISABLE_XORIGIN) {
 }
 
 // is this working
-
-app.use('/public', express.static(process.cwd() + '/public'));
-
-app.route('/_api/package.json')
-  .get(function(req, res, next) {
-    console.log('requested');
-    fs.readFile(__dirname + '/package.json', function(err, data) {
-      if (err) return next(err);
-      res.type('txt').send(data.toString());
-    });
-  });
-
-
 MongoClient.connect(mongoUri, function(err, client) {
+
   // assert.equal(null, err);
   if (err) {
     throw new Error(err);
   }
   console.log('Successfully connected to mondodb');
 
-
   const urls = 'urls';
   const database = 'heroku_4mhtfdcs'
   var db = client.db(database);
 
-  // reload(app);
-  app.route('/')
-    .get(function(req, res) {
-      if (req.path == '/') {
-        res.sendFile(process.cwd() + '/views/index.html');
-      } else {
-        res.send({
-          name: "hello world"
-        });
-      }
-    });
+  app.use('/public', express.static(process.cwd() + '/public'));
+  app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 
-  app.route('/new/*')
-    .get(function(req, res) {
-      var query = req.path;
-      query = query.substr(5);
-      console.log("query", query);
-      // ...
-      if (!validUrl.isUri(query)) {
-        console.log("invalid url");
+  routes(app, db);
 
-        res.send({
-          error: "not a valid url-3"
-        })
-      } else {
-        console.log("valid url");
-        db.collection('urls').find({}).count(function(err, count) {
-          if (err) res.send({
-              error: err
-            })
-          console.log("count", count);
-          const newCount = SHORT_CODE_START + Number(count)
-          db.collection('urls').insertOne({
-            url: query,
-            shortCode: newCount
-          }, function(err, doc) {
-            assert.equal(null, err);
-            console.log("doc", doc);
-            res.send({
-              "original_url": query,
-              "short_url": "https://fcc-url-shortner1.herokuapp.com/" + newCount
-            });
-          });
-
-        });
-
-        db.collection('urls').find({}).toArray(function(err, docs) {
-          console.log("docs", docs);
-        });
-
-
-      }
-    });
-
-  app.route('/:query')
-    .get(function(req, res) {
-      console.log("req", req);
-      if (validator.isNumeric(req.params.query)) {
-        db.collection('urls').findOne({
-          shortCode: Number(req.params.query)
-        }, null, function(err, doc) {
-          if (doc) {
-            console.log(doc);
-            res.redirect(doc.url);
-          } else {
-            res.send({
-              error: "shortCode not found"
-            })
-          }
-        });
-
-      } else {
-        res.send({
-          error: "url invalid"
-        })
-      }
-    });
-
-
-
-
-  // Respond not found to all the wrong routes
-  app.use(function(req, res, next) {
-    res.status(404);
-    res.type('txt').send('Not found');
-  });
-
-  // Error Middleware
-  app.use(function(err, req, res, next) {
-    if (err) {
-      res.status(err.status || 500)
-        .type('txt')
-        .send(err.message || 'SERVER ERROR');
-    }
-  })
   app.listen(process.env.PORT || 5000, function() {
     console.log('Node.js listening ...');
   });
