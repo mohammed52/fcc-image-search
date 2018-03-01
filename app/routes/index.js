@@ -2,6 +2,10 @@
 
 var request = require('request')
 
+const API_KEY = process.env.GOOGLE_SEARCH_API_KEY;
+const SE_ID = process.env.GOOGLE_SEARCH_ENGINE_ID;
+const urlBase = 'https://www.googleapis.com/customsearch/v1?key=' + API_KEY + '&cx=' + SE_ID + '&q='
+
 module.exports = function(app, db) {
 
   app.route('/_api/package.json')
@@ -31,13 +35,7 @@ module.exports = function(app, db) {
         }
 
 
-        const urlBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyBK7iTVUsP2V-YGSf-nEfaNMkl6qON_JWo&cx=015116788510699785616:kz3yotcf4j4&q='
-        // const url2 = urlBase + req.params.query + '&start=' + start + '&num=' + count;
-        console.log("count", count);
-        console.log("start", start);
-        const url = urlBase + 'mohammed' + '&start=' + '10' + '&num=' + '5';
-        // const url = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyBK7iTVUsP2V-YGSf-nEfaNMkl6qON_JWo&cx=015116788510699785616:kz3yotcf4j4&q=mohammed&start=10&num=2';
-        console.log(url);
+        const url = urlBase + req.params.query + '&start=' + start + '&num=' + count;
 
         request.get(url, function(err, response, body) {
           if (err) {
@@ -46,8 +44,13 @@ module.exports = function(app, db) {
           console.log((JSON.parse(response.body)).items);
           res.send({
             params: req.params,
-            query: req.query
+            query: req.query,
+            results: (JSON.parse(response.body)).items
           })
+        })
+      } else {
+        res.send({
+          error: 'no search word specified'
         })
       }
     })
