@@ -15,7 +15,7 @@ AIzaSyBK7iTVUsP2V-YGSf-nEfaNMkl6qON_JWo
 Documentation: https://developers.google.com/custom-search/docs/glossary#json
 --
 Sample Search String:
-GET https://www.googleapis.com/customsearch/v1?key=AIzaSyBK7iTVUsP2V-YGSf-nEfaNMkl6qON_JWo&cx=015116788510699785616:kz3yotcf4j4&q=lectures&searchType=image
+GET https://www.googleapis.com/customsearch/v1?key=AIzaSyBK7iTVUsP2V-YGSf-nEfaNMkl6qON_JWo&cx=015116788510699785616:kz3yotcf4j4&q=lectures
 --
 Copy this directory Structure:
 https://github.com/StevenXL/fcc-url-shortener/blob/master/server.js
@@ -48,11 +48,11 @@ there are multiple libraries for making http requests, axios is one of them
 --
 if you have to make a super simple request: use npm request module
 --
-facebook started out as a college directory only
+API docs , count can not be more than 10
 --
-use npm image-search
+Q: Module is not a constructor??
+Ans: the imported constructor name can not be the same as created object name
 --
-search start page >=1, count <10 && count > 0
---
-get fields: url, snippet, thumbnail, context
+Connect to MLab using mongo shell
+mongo ds249418.mlab.com:49418/heroku_nq506n8t -u heroku_nq506n8t -p 8vijcmfi67in207ct7coacchhl
 --

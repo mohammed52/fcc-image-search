@@ -7,6 +7,7 @@
 
 var fs = require('fs');
 var express = require('express');
+var routes = require('./app/routes/index.js');
 var app = express();
 // var timestamp = require('unix-timestamp')
 // var moment = require('moment')
@@ -16,7 +17,6 @@ var assert = require('assert');
 var validUrl = require('valid-url');
 var validator = require('validator');
 
-var routes = require('./app/routes/index.js');
 
 const MongoClient = require('mongodb').MongoClient
 
@@ -47,11 +47,20 @@ MongoClient.connect(mongoUri, function(err, client) {
   console.log('Successfully connected to mondodb');
 
   const urls = 'urls';
-  const database = 'heroku_4mhtfdcs'
+  const database = 'heroku_nq506n8t'
   var db = client.db(database);
 
   app.use('/public', express.static(process.cwd() + '/public'));
   app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+
+  app.route('/_api/package.json')
+    .get(function(req, res, next) {
+      console.log('requested');
+      fs.readFile(__dirname + '/package.json', function(err, data) {
+        if (err) return next(err);
+        res.type('txt').send(data.toString());
+      });
+    });
 
   routes(app, db);
 

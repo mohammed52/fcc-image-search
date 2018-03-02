@@ -1,15 +1,19 @@
 'use strict';
 
 var request = require('request')
-var searchTermHandler = require(process.cwd() + '/app/controllers/searchTermHandler.server.js');
+var SearchTermHandler = require(process.cwd() + '/app/controllers/searchTermHandler.server.js');
+var TestClass = require(process.cwd() + '/app/controllers/testClass.js');
 
 const API_KEY = process.env.GOOGLE_SEARCH_API_KEY;
 const SE_ID = process.env.GOOGLE_SEARCH_ENGINE_ID;
 const urlBase = 'https://www.googleapis.com/customsearch/v1?key=' + API_KEY + '&cx=' + SE_ID + '&searchType=image' + '&q='
 
 module.exports = function(app, db) {
+  console.log("process.cwd()", process.cwd());
 
-  var searchTermHandler = new searchTermHandler(db);
+  var searchHandler = new SearchTermHandler(db);
+  // var TestClass = new TestClass(db);
+
 
   app.route('/_api/package.json')
     .get(function(req, res, next) {
@@ -44,7 +48,7 @@ module.exports = function(app, db) {
           }
           console.log((JSON.parse(response.body)).items);
 
-          searchTermHandler.addSearchTerm(req, res, function(data) {
+          searchHandler.addSearchTerm(req, res, function(data) {
             console.log("data added", data);
 
             res.send({
@@ -62,6 +66,13 @@ module.exports = function(app, db) {
       }
     })
 
+  app.route('/api/latest/imagesearch')
+    .get(function(req, res) {
+      searchHandler.getSearchHistory(req, res, function(data) {
+        console.log(data);
+        res.send(data);
+      });
+    })
   app.route('/')
     .get(function(req, res) {
       if (req.path == '/') {
