@@ -54,3 +54,5 @@ use npm image-search
 --
 search start page >=1, count <10 && count > 0
 --
+get fields: url, snippet, thumbnail, context
+--
