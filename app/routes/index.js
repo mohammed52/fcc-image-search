@@ -1,14 +1,15 @@
 'use strict';
 
 var request = require('request')
-// const imageSearch = require('image-search-google');
-
+var searchTermHandler = require(process.cwd() + '/app/controllers/searchTermHandler.server.js');
 
 const API_KEY = process.env.GOOGLE_SEARCH_API_KEY;
 const SE_ID = process.env.GOOGLE_SEARCH_ENGINE_ID;
 const urlBase = 'https://www.googleapis.com/customsearch/v1?key=' + API_KEY + '&cx=' + SE_ID + '&searchType=image' + '&q='
 
 module.exports = function(app, db) {
+
+  var searchTermHandler = new searchTermHandler(db);
 
   app.route('/_api/package.json')
     .get(function(req, res, next) {
@@ -27,39 +28,12 @@ module.exports = function(app, db) {
       console.log("req.query", req.query);
 
       if (req.params.query) {
-
         if (req.query.start) {
           start = req.query.start
         }
         if (req.query.count) {
           count = req.query.count
         }
-
-        // const imageClient = new imageSearch(SE_ID, API_KEY);
-        // var options = {
-        //   page: page
-        // };
-        // client.search('Salman Khan', options)
-        //   .then(images => {
-
-        //     res.send({
-        //       params: req.params,
-        //       query: req.query,
-        //       results: images
-        //     })
-        /*
-        [{
-            'url': item.link,
-            'thumbnail':item.image.thumbnailLink,
-            'snippet':item.title,
-            'context': item.image.contextLink
-        }]
-         */
-        // })
-        // .catch(error => {
-        //   console.log(error);
-
-        // });
 
         const url = urlBase + req.params.query + '&start=' + start + '&num=' + count;
 
@@ -69,11 +43,17 @@ module.exports = function(app, db) {
             throw new Error(err);
           }
           console.log((JSON.parse(response.body)).items);
-          res.send({
-            params: req.params,
-            query: req.query,
-            results: (JSON.parse(response.body)).items
-          })
+
+          searchTermHandler.addSearchTerm(req, res, function(data) {
+            console.log("data added", data);
+
+            res.send({
+              params: req.params,
+              query: req.query,
+              results: (JSON.parse(response.body)).items
+            })
+          });
+
         })
       } else {
         res.send({
