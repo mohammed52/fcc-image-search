@@ -1,10 +1,12 @@
 'use strict';
 
 var request = require('request')
+// const imageSearch = require('image-search-google');
+
 
 const API_KEY = process.env.GOOGLE_SEARCH_API_KEY;
 const SE_ID = process.env.GOOGLE_SEARCH_ENGINE_ID;
-const urlBase = 'https://www.googleapis.com/customsearch/v1?key=' + API_KEY + '&cx=' + SE_ID + '&q='
+const urlBase = 'https://www.googleapis.com/customsearch/v1?key=' + API_KEY + '&cx=' + SE_ID + '&searchType=image' + '&q='
 
 module.exports = function(app, db) {
 
@@ -20,7 +22,7 @@ module.exports = function(app, db) {
   // https://cryptic-ridge-9197.herokuapp.com/api/imagesearch/lolcats%20funny?offset=10
   app.route('/api/imagesearch/:query')
     .get(function(req, res) {
-      var start = 0;
+      var start = 1;
       var count = 10;
       console.log("req.query", req.query);
 
@@ -29,14 +31,39 @@ module.exports = function(app, db) {
         if (req.query.start) {
           start = req.query.start
         }
-
         if (req.query.count) {
           count = req.query.count
         }
 
+        // const imageClient = new imageSearch(SE_ID, API_KEY);
+        // var options = {
+        //   page: page
+        // };
+        // client.search('Salman Khan', options)
+        //   .then(images => {
+
+        //     res.send({
+        //       params: req.params,
+        //       query: req.query,
+        //       results: images
+        //     })
+        /*
+        [{
+            'url': item.link,
+            'thumbnail':item.image.thumbnailLink,
+            'snippet':item.title,
+            'context': item.image.contextLink
+        }]
+         */
+        // })
+        // .catch(error => {
+        //   console.log(error);
+
+        // });
 
         const url = urlBase + req.params.query + '&start=' + start + '&num=' + count;
 
+        console.log("url", url);
         request.get(url, function(err, response, body) {
           if (err) {
             throw new Error(err);
