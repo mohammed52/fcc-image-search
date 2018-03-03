@@ -17,23 +17,18 @@ function searchTermHandler(db) {
   };
 
   this.getSearchHistory = function(req, res, callback) {
-    searchTerms.find({
-      // searchTerm: "karachi"
-    }, {
-      _id: 0
-    })
-      .sort({
-        createdAt: 1
+    searchTerms.find({})
+      .project({
+        searchTerm: 1
       })
       .toArray(function(err, result) {
 
-        if (err) {
-          throw new Error(err)
-        } else {
-          console.log("result", result);
-          callback(result)
-        }
-      })
+        if (err)
+          throw new Error(err);
+
+        console.log("result", result);
+        callback(result)
+      });
   }
 
 }

@@ -56,3 +56,11 @@ Ans: the imported constructor name can not be the same as created object name
 Connect to MLab using mongo shell
 mongo ds249418.mlab.com:49418/heroku_nq506n8t -u heroku_nq506n8t -p 8vijcmfi67in207ct7coacchhl
 --
+shakir@usman.edu.pk
+file cabinet with locker
+--
+mongodb://heroku_nq506n8t:8vijcmfi67in207ct7coacchhl@ds249418.mlab.com:49418/heroku_nq506n8t
+--
+Q: unable to project field? in mongo find()
+Ans: use .project() API
+--
