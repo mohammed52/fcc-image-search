@@ -1,8 +1,7 @@
 'use strict';
 
-var request = require('request')
-var SearchTermHandler = require(process.cwd() + '/app/controllers/searchTermHandler.server.js');
-var TestClass = require(process.cwd() + '/app/controllers/testClass.js');
+let request = require('request')
+let SearchTermHandler = require(process.cwd() + '/app/controllers/searchTermHandler.server.js');
 
 const API_KEY = process.env.GOOGLE_SEARCH_API_KEY;
 const SE_ID = process.env.GOOGLE_SEARCH_ENGINE_ID;
@@ -11,8 +10,8 @@ const urlBase = 'https://www.googleapis.com/customsearch/v1?key=' + API_KEY + '&
 module.exports = function(app, db) {
   console.log("process.cwd()", process.cwd());
 
-  var searchHandler = new SearchTermHandler(db);
-  // var TestClass = new TestClass(db);
+  let searchHandler = new SearchTermHandler(db);
+  // let TestClass = new TestClass(db);
 
 
   app.route('/_api/package.json')
@@ -27,8 +26,8 @@ module.exports = function(app, db) {
   // https://cryptic-ridge-9197.herokuapp.com/api/imagesearch/lolcats%20funny?offset=10
   app.route('/api/imagesearch/:query')
     .get(function(req, res) {
-      var start = 1;
-      var count = 10;
+      let start = 1;
+      let count = 10;
       console.log("req.query", req.query);
 
       if (req.params.query) {
@@ -46,15 +45,29 @@ module.exports = function(app, db) {
           if (err) {
             throw new Error(err);
           }
-          console.log((JSON.parse(response.body)).items);
+          // console.log((JSON.parse(response.body)).items);
 
           searchHandler.addSearchTerm(req, res, function(data) {
             console.log("data added", data);
 
+            const itemsArr = (JSON.parse(response.body)).items;
+            let tempItemsArr = []
+            for (let item of itemsArr) {
+              // console.log("item", item);
+              // url, snippet, thumbnanil, context
+              tempItemsArr.push({
+                url: item.link,
+                snippet: item.snippet,
+                thumbnail: item.image.thumbnailLink,
+                context: item.image.contextLink
+              }
+              )
+            }
+
             res.send({
               params: req.params,
               query: req.query,
-              results: (JSON.parse(response.body)).items
+              results: tempItemsArr
             })
           });
 

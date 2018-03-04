@@ -1,0 +1,53 @@
+module.exports = {
+  "extends": "google",
+  "rules": {
+    "comma-dangle": 0,
+    "indent": 0,
+    "react/prop-types": 0,
+    "react/jsx-indent-props": 0,
+    "linebreak-style": 0,
+    "react/jsx-closing-bracket-location": 0,
+    "object-curly-spacing": 0,
+    "arrow-body-style": 0,
+    "no-console": 0,
+    "max-len": 0,
+    "prefer-template": 0,
+    "global-require": 0,
+    "no-underscore-dangle": 0,
+    "no-shadow": 0,
+    "react/prefer-stateless-function": 0,
+    "import/extensions": 0,
+    "react/require-default-props": 0,
+    // "no-var": 0,
+    "import/newline-after-import": 0,
+    "padded-blocks": 0,
+    "semi": 0,
+    "react/forbid-prop-types": 0,
+    "react/jsx-first-prop-new-line": 0,
+    "quotes": 0,
+    "react/jsx-space-before-closing": 0,
+    "no-multiple-empty-lines": 0,
+    "prefer-const": 0,
+    "class-methods-use-this": 0,
+    "react/jsx-tag-spacing": 0,
+    "react/jsx-indent": 1,
+    "no-unused-vars": 1,
+    "no-sequences": 0,
+    "no-trailing-spaces": 0,
+    "no-plusplus": 0,
+    "vars-on-top": 0,
+    "react/sort-comp": 0,
+    "require-jsdoc": 0,
+    "no-invalid-this": 0,
+    "curly": 0,
+    "eol-last": 0
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  }
+}

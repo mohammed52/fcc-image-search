@@ -1,8 +1,9 @@
 'use strict';
 
 function searchTermHandler(db) {
-  var searchTerms = db.collection('searchTerms');
-  var hostname = "https://fcc-image-search1.herokuapp.com/";
+
+  let searchTerms = db.collection('searchTerms');
+  let hostname = "https://fcc-image-search1.herokuapp.com/";
 
   this.addSearchTerm = function(req, res, callback) {
     searchTerms.insertOne({
@@ -18,11 +19,15 @@ function searchTermHandler(db) {
 
   this.getSearchHistory = function(req, res, callback) {
     searchTerms.find({})
-      .project({
-        searchTerm: 1
-      })
-      .toArray(function(err, result) {
 
+      .sort({
+        createdAt: -1
+      })
+      .project({
+        _id: 0,
+      })
+      .limit(10)
+      .toArray(function(err, result) {
         if (err)
           throw new Error(err);
 
